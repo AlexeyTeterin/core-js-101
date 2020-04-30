@@ -261,8 +261,9 @@ function encodeToRot13(s) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (typeof value === 'object') return value instanceof String;
+  return typeof value === 'string';
 }
 
 
@@ -290,8 +291,12 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(card) {
+  const values = 'A234567891JQK';
+  const suits = '♣♦♥♠';
+  const cardValue = card.charAt(0);
+  const cardSuit = card.charAt(card.length - 1);
+  return values.indexOf(cardValue) + suits.indexOf(cardSuit) * 13;
 }
 
 
