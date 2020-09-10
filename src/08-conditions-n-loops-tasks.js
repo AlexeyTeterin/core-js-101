@@ -381,8 +381,7 @@ function getCommonDirectoryPath(pathes) {
   for (let chIndex = 0; chIndex < pathes[0].length; chIndex += 1) {
     counter = pathes.length;
     const currCh = pathes[0].split('')[chIndex];
-    // eslint-disable-next-line no-loop-func
-    pathes.forEach((string) => { counter -= (string.split('')[chIndex] === currCh) ? 1 : 0; });
+    for (const string of pathes) counter -= (string.split('')[chIndex] === currCh) ? 1 : 0;
     if (counter === 0) result += currCh;
     else break;
   }
