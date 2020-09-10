@@ -1,3 +1,4 @@
+/* eslint-disable space-in-parens */
 /* eslint-disable no-restricted-syntax */
 /* *************************************************************************************************
  *                                                                                                *
@@ -122,7 +123,7 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
+function doRectanglesOverlap( /* rect1, rect2 */ ) {
   throw new Error('Not implemented');
 }
 
@@ -200,8 +201,12 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const openBracket = isStartIncluded ? '[' : '(';
+  const closeBracket = isEndIncluded ? ']' : ')';
+  const openNum = a > b ? b : a;
+  const closeNum = a > b ? a : b;
+  return `${openBracket}${openNum}, ${closeNum}${closeBracket}`;
 }
 
 
@@ -326,10 +331,12 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (str.length === 0) return true;
+  const brackets = /\(\)|\[\]|\{\}|<>/;
+  if (str.match(brackets)) return isBracketsBalanced(str.replace(brackets, ''));
+  return false;
 }
-
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
@@ -351,7 +358,7 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
+function toNaryString( /* num, n */ ) {
   throw new Error('Not implemented');
 }
 
@@ -368,7 +375,7 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
+function getCommonDirectoryPath( /* pathes */ ) {
   throw new Error('Not implemented');
 }
 
@@ -391,7 +398,7 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
+function getMatrixProduct( /* m1, m2 */ ) {
   throw new Error('Not implemented');
 }
 
@@ -426,7 +433,7 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
+function evaluateTicTacToePosition( /* position */ ) {
   throw new Error('Not implemented');
 }
 
