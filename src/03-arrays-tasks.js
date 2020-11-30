@@ -563,9 +563,6 @@ function selectMany(arr, childrenSelector) {
   return result;
 }
 
-console.log(selectMany([[1, 2], [3, 4], [5, 6]], (x) => x ));
-console.log(selectMany(['one', 'two', 'three'], (x) => x.split('')));
-
 /**
  * Returns an element from the multidimentional array by the specified indexes.
  *
