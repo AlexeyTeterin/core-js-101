@@ -54,11 +54,13 @@ function willYouMarryMe(isPositiveAnswer) {
 function processAllPromises(array) {
   return new Promise((resolve) => {
     const result = [];
-    array.forEach((prom) => prom.then((res) => result.push(res)));
+    array.forEach((prom) => {
+      prom.then((res) => result.push(res))
+        .catch((e) => e);
+    });
     resolve(result);
   });
 }
-
 
 // const promises = [Promise.resolve(1), Promise.resolve(3), Promise.resolve(12)];
 // const p = processAllPromises(promises);
