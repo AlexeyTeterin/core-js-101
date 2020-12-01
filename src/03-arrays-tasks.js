@@ -199,8 +199,8 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText( /* arr */ ) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  return arr.map((innerArr) => innerArr.join(',')).join('\n');
 }
 
 /**
@@ -470,8 +470,14 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix( /* n */ ) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return new Array(n)
+    .fill([])
+    .map((a, index) => {
+      const arr = new Array(n).fill(0);
+      arr[index] = 1;
+      return arr;
+    });
 }
 
 /**
