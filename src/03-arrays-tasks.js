@@ -487,8 +487,13 @@ function getIdentityMatrix( /* n */ ) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray( /* start, end */ ) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const result = new Array(end - start + 1).fill(0);
+  let num = start - 1;
+  return result.map(() => {
+    num += 1;
+    return num;
+  });
 }
 
 /**
@@ -502,8 +507,13 @@ function getIntervalArray( /* start, end */ ) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct( /* arr */ ) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const res = [];
+  arr.map((num) => {
+    if (!res.includes(num)) res.push(num);
+    return true;
+  });
+  return res;
 }
 
 /**
@@ -536,10 +546,24 @@ function distinct( /* arr */ ) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group( /* array, keySelector, valueSelector */ ) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const res = new Map();
+  const keys = [];
+  array.map((obj) => {
+    const key = keySelector(obj);
+    if (!keys.includes(key)) keys.push(key);
+    return true;
+  });
+  keys.map((el) => {
+    const values = () => array.map((obj) => {
+      if (keySelector(obj) === el) return valueSelector(obj);
+      return true;
+    }).filter((val) => val !== true);
+    res.set(el, values());
+    return true;
+  });
+  return res;
 }
-
 
 /**
  * Projects each element of the specified array to a sequence
