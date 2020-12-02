@@ -64,13 +64,12 @@ function getPowerFunction(exponent) {
  */
 function getPolynom(...args) {
   const len = args.length;
-  if (len === 0) return null;
-  if (len === 1) return `y = ${args[0]}`;
-  // if (len === 2) return 
+  const c = args[len - 1] || 0;
+  const b = args[len - 2] || 0;
+  const a = args[len - 3] || null;
+
+  return (x) => a * x ** 2 + b * x + c;
 }
-
-// console.log(getPolynom(5));
-
 
 /**
  * Memoizes passed function and returns function
@@ -86,10 +85,10 @@ function getPolynom(...args) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const cache = func();
+  return () => cache || func();
 }
-
 
 /**
  * Returns the function trying to call the passed function and if it throws,
@@ -106,10 +105,21 @@ function memoize(/* func */) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  let runs = attempts;
+  let res;
+  return function retr() {
+    if (runs > 0) {
+      try {
+        res = func();
+      } catch (e) {
+        runs -= 1;
+        retr();
+      }
+    }
+    return res;
+  };
 }
-
 
 /**
  * Returns the logging wrapper for the specified method,
@@ -134,10 +144,9 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
+function logger(/* func, logFun */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Return the function with partial applied arguments
@@ -152,10 +161,9 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...a) => fn(...args1, ...a);
 }
-
 
 /**
  * Returns the id generator function that returns next integer starting
@@ -174,10 +182,14 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let counter = 0;
+  return () => (() => {
+    const result = startFrom + counter;
+    counter += 1;
+    return result;
+  })();
 }
-
 
 module.exports = {
   getComposition,
